@@ -5,6 +5,12 @@ class Post extends Model {}
 
 Post.init(
     {
+        post_id:{
+            type: DataTypes.INTEGER,
+            allowNull: false,
+            autoIncrement: true,
+            primaryKey: true,
+        },
         post_title:{
             type: DataTypes.STRING,
             allowNull: false,
