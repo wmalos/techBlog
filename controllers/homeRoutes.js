@@ -1,4 +1,32 @@
-const { Post } = require("../../models");
+const router = require('express').Router();
+const { Post, User, Comment } = require("../../models");
+
+router.get('/', async (req, res) => {
+  try {
+    const createPost = await Post.findAll({
+      attributes: [
+        'id',
+        'title',
+        'content',
+        'created_at'
+      ],
+      include: [
+        {
+          model: Comment,
+          attributes: ['id', 'comments', 'post_id', 'user_id', 'created_at'],
+        },
+      ],
+    });
+    const userPosts = createPost.map((post) => post.get({ plain: true }));
+
+    res.render('homepage', { 
+      userPosts, 
+      logged_in: req.session.logged_in 
+    });
+  } catch (err) {
+    res.status(500).json(err);
+  }
+});
 
 
 
