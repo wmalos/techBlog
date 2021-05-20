@@ -10,13 +10,21 @@ router.get('/', async (req, res) => {
         'content',
         'created_at'
       ],
-      include: [
-        {
-          model: Comment,
-          attributes: ['id', 'comments', 'post_id', 'user_id', 'created_at'],
-        },
-      ],
-    });
+      include: [{
+        model: Comment,
+        attributes: ['id', 'comments', 'post_id', 'user_id', 'created_at'],
+        include: {
+          model: User,
+          attributes: ['username']
+        }
+      },
+      {
+        model: User,
+        attributes: ['Username']
+      }
+      ]
+    })
+    
     const userPosts = createPost.map((post) => post.get({ plain: true }));
 
     res.render('homepage', { 
