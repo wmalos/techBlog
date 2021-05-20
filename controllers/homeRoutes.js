@@ -78,7 +78,37 @@ router.get("/post/:id", async (req, res) => {
   }
 });
 
+router.get("/userPosts-comments", async (req, res) => {
+  try {
+    const postComments = await Post.findPost({
+      where: {
+        id: req.params.id,
+      },
 
+      attributes: ["id", "content", "title", "created_at"],
 
+      include: [
+        {
+          model: Comment,
+          attributes: ["id", "comments", "post_id", "user_id", "created_at"],
+          include: {
+            model: User,
+            attributes: ["username"],
+          },
+        },
+      ],
+    });
+    if (!postComments) {
+      res.status(404).json({ message: "A post with this id does not exist" });
+      return;
+    }
+
+    const post = postComments.get({ plain: true });
+    res.render("post-comments", { post, logged_in: req.session.logged_in });
+  } catch (err) {
+    console.log(err);
+    res.status(500).json(err);
+  }
+});
 
 module.exports = router;
