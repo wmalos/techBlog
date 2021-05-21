@@ -30,9 +30,9 @@ const delButtonHandler = async (event) => {
     });
 
     if (response.ok) {
-      document.location.replace("/profile");
+      document.location.replace("/dashboard");
     } else {
-      alert("Failed to delete project");
+      alert("Failed to delete post");
     }
   }
 };
