@@ -1,0 +1,14 @@
+{{#each posts as |post|}}
+
+<div class="card">
+    <div class="card-header">
+        <h3><a class="link" href="/post/{{post.post_id}}">{{post.post_title}}</a></h3>
+        <p>Posted by {{post.user.username}} on {{format_date post.created_at}}</p>
+    </div>
+    <p class="card-body">{{post.content}}</p>
+</div>
+
+
+{{else}}
+<h6 class="pb-4 has-text-centered is-italic"> no posts yet</h6>
+{{/each}}
