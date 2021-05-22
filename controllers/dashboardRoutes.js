@@ -30,7 +30,7 @@ router.get("/", withAuth, async (req, res) => {
 
     const userPosts = createPost.map((post) => post.get({ plain: true }));
 
-    res.render("dashboard", {
+    res.render('dashboard', {
       userPosts,
       logged_in: req.session.logged_in,
     });
@@ -40,7 +40,7 @@ router.get("/", withAuth, async (req, res) => {
   }
 });
 
-router.get("/edit/:id", withAuth, async (req, res) => {
+router.get('/edit/:id', withAuth, async (req, res) => {
   try {
     const postData = await Post.findOne({
       where: {
