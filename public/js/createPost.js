@@ -5,7 +5,7 @@ const newFormHandler = async (event) => {
   const postContent = document.querySelector("#post-content").value.trim();
 
   if (title && postContent) {
-    const response = await fetch(`/api/post`, {
+    const response = await fetch(`/api/posts`, {
       method: "POST",
       body: JSON.stringify({ title, postContent }),
       headers: {
@@ -25,7 +25,7 @@ const delButtonHandler = async (event) => {
   if (event.target.hasAttribute("data-id")) {
     const id = event.target.getAttribute("data-id");
 
-    const response = await fetch(`/api/projects/${id}`, {
+    const response = await fetch(`/api/posts/${id}`, {
       method: "DELETE",
     });
 
