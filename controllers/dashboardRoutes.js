@@ -9,12 +9,12 @@ router.get("/", withAuth, async (req, res) => {
       where: {
         user_id: req.session.user_id,
       },
-      attributes: ["id", "title", "content", "created_at"],
+      attributes: ["post_id", "post_title", "content", "created_at"],
 
       include: [
         {
           model: Comment,
-          attributes: ["id", "comments", "post_id", "user_id", "created_at"],
+          attributes: ["comment_body", "post_id", "user_id", "created_at"],
           include: {
             model: User,
             attributes: ["username"],
@@ -23,15 +23,15 @@ router.get("/", withAuth, async (req, res) => {
 
         {
           model: User,
-          attributes: ["username"],
+          attributes: ["id", "username"],
         },
       ],
     });
 
-    const userPosts = createPost.map((post) => post.get({ plain: true }));
+    const posts = createPost.map((post) => post.get({ plain: true }));
 
     res.render('dashboard', {
-      userPosts,
+      posts,
       logged_in: req.session.logged_in,
     });
   } catch (err) {

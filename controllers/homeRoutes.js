@@ -1,14 +1,15 @@
 const router = require("express").Router();
 const { Post, User, Comment } = require("../models");
+const { findOne } = require("../models/Comment");
 
 router.get("/", async (req, res) => {
   try {
     const createPost = await Post.findAll({
-      attributes: ["id", "title", "content", "created_at"],
+      attributes: ["post_id", "post_title", "content", "created_at"],
       include: [
         {
           model: Comment,
-          attributes: ["id", "comments", "post_id", "user_id", "created_at"],
+          attributes: ["comment_body", "post_id", "user_id", "created_at"],
           include: {
             model: User,
             attributes: ["username"],
@@ -16,15 +17,16 @@ router.get("/", async (req, res) => {
         },
         {
           model: User,
-          attributes: ["Username"],
+          attributes: ["id","username"],
         },
       ],
     });
 
-    const userPosts = createPost.map((post) => post.get({ plain: true }));
+    const posts = createPost.map((post) => post.get({ plain: true }));
+    console.log(posts);
 
     res.render("homepage", {
-      userPosts,
+      posts,
       logged_in: req.session.logged_in,
     });
   } catch (err) {
@@ -80,7 +82,7 @@ router.get("/post/:id", async (req, res) => {
 
 router.get("/userPosts-comments", async (req, res) => {
   try {
-    const postComments = await Post.findPost({
+    const postComments = await Post.findOne({
       where: {
         id: req.params.id,
       },
