@@ -4,7 +4,7 @@
     <h2>
       <a href="/post/{{post.post_id}}">{{post.post_title}}</a>
     </h2>
-    <p>Created by {{post.user_id}} on {{format_date post.date_created}}</p>
+    <p>Created by {{post.user.username}} on {{format_date post.date_created}}</p>
   </div>
   <div class="col-md-7">
     <p>
