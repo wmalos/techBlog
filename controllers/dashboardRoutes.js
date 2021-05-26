@@ -79,7 +79,7 @@ router.get('/edit/:id', withAuth, async (req, res) => {
 });
 
 router.get("/createPost", (req, res) => {
-  res.render("createPost");
+  //res.render("createPost");
   res.render("createPost", {logged_in: req.session.logged_in})
 });
 
