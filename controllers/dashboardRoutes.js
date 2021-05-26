@@ -47,17 +47,17 @@ router.get('/edit/:id', withAuth, async (req, res) => {
         id: req.params.id,
       },
 
-      attributes: ["id", "title", "content", "created_at"],
+      attributes: ["post_id", "post_title", "content", "created_at"],
 
       include: [
         {
           model: User,
-          attributes: ["username"],
+          attributes: ["id","username"],
         },
 
         {
           model: Comment,
-          attributes: ["id", "comments", "post_id", "user_id", "created_at"],
+          attributes: ["id", "comment_body", "post_id", "user_id", "created_at"],
           include: {
             model: User,
             attributes: ["username"],
@@ -80,6 +80,7 @@ router.get('/edit/:id', withAuth, async (req, res) => {
 
 router.get("/createPost", (req, res) => {
   res.render("createPost");
+  res.render("createPost", {logged_in: req.session.logged_in})
 });
 
 module.exports = router;

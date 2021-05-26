@@ -41,4 +41,4 @@ document.querySelector(".new-post").addEventListener("submit", newFormHandler);
 
 document
   .querySelector(".post-list")
-  .addEventListener("click", delButtonHandler);
+  //.addEventListener("click", delButtonHandler);
