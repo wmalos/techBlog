@@ -47,18 +47,19 @@ router.get("/signup", (req, res) => {
 });
 
 router.get("/post/:id", async (req, res) => {
+  console.log("home route")
   try {
     const findPost = await Post.findOne({
       where: {
-        id: req.params.id,
+        post_id: req.params.id,
       },
 
-      attributes: ["id", "content", "title", "created_at"],
+      attributes: ["post_id", "content", "post_title", "created_at"],
 
       include: [
         {
           model: Comment,
-          attributes: ["id", "comments", "post_id", "user_id", "created_at"],
+          attributes: ["id", "comment_body", "post_id", "user_id", "created_at"],
           include: {
             model: User,
             attributes: ["username"],

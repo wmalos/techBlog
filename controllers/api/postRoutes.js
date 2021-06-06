@@ -9,10 +9,10 @@ router.get("/", (req, res) => {
     include: [
       {
         model: Comment,
-        attributes: ["comment_body", "post_id", "user_id", "created_at"],
+        attributes: ["comment_body", "post_id", "created_at"],
         include: {
           model: User,
-          attributes: ["username"],
+          attributes: ["id", "username"],
         },
       },
       {
@@ -57,5 +57,69 @@ router.delete("/:id", withAuth, (req, res) => {
       res.status(500).json(err);
     });
 });
+
+router.get('/:id', (req, res) => {
+  console.log("this is the route")
+  Post.findOne({
+      where: {
+          post_id: req.params.id
+      },
+      attributes: ['post_id', 'content', 'post_title', 'created_at'],
+
+      include: [{
+          model: User,
+          attributes: ['id', 'username']
+      },
+
+      {
+          model: Comment,
+          attributes: [, 'comment_body', 'post_id', 'created_at'],
+          include: {
+              model: User,
+              attributes: ['id', 'username']
+          }
+      }
+
+      ]
+  })
+      .then(dbPostData => {
+          if (!dbPostData) {
+              res.status(404).json({ message: 'Page not found..' });
+              return;
+          }
+          res.json(dbPostData);
+      })
+      .catch(err => {
+          console.log(err);
+          res.status(500).json(err);
+      });
+});
+
+
+router.put('/:id', withAuth, (req, res) => {
+  Post.update({
+      title: req.body.post_title,
+      content: req.body.content
+  },
+      {
+          where: {
+              id: req.params.id
+          }
+      })
+
+      .then(dbPostData => {
+          if (!dbPostData) {
+              res.status(404).json({ message: 'This post does not exist' });
+              return
+          }
+          res.json(dbPostData);
+      })
+      .catch(err => {
+          console.log(err);
+          res.status(500).json(err);
+      });
+});
+
+
 
 module.exports = router;
