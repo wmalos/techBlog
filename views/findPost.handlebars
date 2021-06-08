@@ -19,18 +19,13 @@
     <p>Created by {{post.user.username}} on {{format_date post.created_at}}</p>
   </div>
   <div>
-      <p>{{post.comment.comment_body}}</p>
+    <p>{{post.comments.comment_body}}</p>
   </div>
-  <div>  
-    <p>
-      <textarea class="comment"></textarea>
-      <button class="btn btn-primary comment-button" id={{post.post_id}}>Add Comment</button>
-    </p>
+  <div>
+    <textarea id ="comment" name ="comment"></textarea>
+    <button class="btn btn-primary comment-button" id={{post.post_id}}>Add
+      Comment</button>
   </div>
-  <script src="/js/comment.js"></script>
 </div>
 
-
-
-
-
+<script src="/js/comment.js"></script>
