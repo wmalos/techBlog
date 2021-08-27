@@ -11,8 +11,12 @@ A blog to post just about anything.
 - [Link](#link)
 - [Contact](#contact)
 
+![techBlog](https://github.com/wmalos/techBlog/blob/main/Assets/techBlogfront.png)
+
+![techBlog](https://github.com/wmalos/techBlog/blob/main/Assets/techBlogback.png)
+
 ## Installation
-se command 'npm i' in order to download the required dependencies.
+Use command 'npm i' in order to download the required dependencies.
 
 ## Usage
 The user can sign up and create a username and then they make their own posts and view posts from other users.
